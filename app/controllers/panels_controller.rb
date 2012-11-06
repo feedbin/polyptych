@@ -3,11 +3,9 @@ class PanelsController < ApplicationController
   # GET /panels/1
   # GET /panels/1.json
   def show
-    @panel = Panel.find(params[:id])
-
+    @favicons = Panel.first.favicons
     respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @panel }
+      format.css
     end
   end
 
