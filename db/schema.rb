@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121106145312) do
+ActiveRecord::Schema.define(:version => 20121106151039) do
+
+  create_table "favicon_panels", :force => true do |t|
+    t.integer  "favicon_id"
+    t.integer  "panel_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "favicon_panels", ["favicon_id", "panel_id"], :name => "index_favicon_panels_on_favicon_id_and_panel_id", :unique => true
+  add_index "favicon_panels", ["favicon_id"], :name => "index_favicon_panels_on_favicon_id"
+  add_index "favicon_panels", ["panel_id"], :name => "index_favicon_panels_on_panel_id"
 
   create_table "favicons", :force => true do |t|
     t.string   "hostname"
@@ -22,6 +33,17 @@ ActiveRecord::Schema.define(:version => 20121106145312) do
   end
 
   add_index "favicons", ["hostname"], :name => "index_favicons_on_hostname", :unique => true
+
+  create_table "favicons_panels", :force => true do |t|
+    t.integer  "favicon_id"
+    t.integer  "panel_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "favicons_panels", ["favicon_id", "panel_id"], :name => "index_favicons_panels_on_favicon_id_and_panel_id", :unique => true
+  add_index "favicons_panels", ["favicon_id"], :name => "index_favicons_panels_on_favicon_id"
+  add_index "favicons_panels", ["panel_id"], :name => "index_favicons_panels_on_panel_id"
 
   create_table "panels", :force => true do |t|
     t.string   "hash"
