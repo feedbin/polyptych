@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121106144403) do
+ActiveRecord::Schema.define(:version => 20121106145312) do
 
   create_table "favicons", :force => true do |t|
     t.string   "hostname"
@@ -22,5 +22,13 @@ ActiveRecord::Schema.define(:version => 20121106144403) do
   end
 
   add_index "favicons", ["hostname"], :name => "index_favicons_on_hostname", :unique => true
+
+  create_table "panels", :force => true do |t|
+    t.string   "hash"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "panels", ["hash"], :name => "index_panels_on_hash", :unique => true
 
 end
