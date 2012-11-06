@@ -34,17 +34,6 @@ ActiveRecord::Schema.define(:version => 20121106153545) do
 
   add_index "favicons", ["hostname"], :name => "index_favicons_on_hostname", :unique => true
 
-  create_table "favicons_panels", :force => true do |t|
-    t.integer  "favicon_id"
-    t.integer  "panel_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "favicons_panels", ["favicon_id", "panel_id"], :name => "index_favicons_panels_on_favicon_id_and_panel_id", :unique => true
-  add_index "favicons_panels", ["favicon_id"], :name => "index_favicons_panels_on_favicon_id"
-  add_index "favicons_panels", ["panel_id"], :name => "index_favicons_panels_on_panel_id"
-
   create_table "panels", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
