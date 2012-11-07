@@ -1,5 +1,7 @@
 class PanelsController < ApplicationController
 
+  skip_before_filter :verify_authenticity_token
+  
   # GET /panels/1
   # GET /panels/1.json
   def show
@@ -12,17 +14,30 @@ class PanelsController < ApplicationController
   # POST /panels
   # POST /panels.json
   def create
-    @panel = Panel.new(params[:panel])
+    begin
+      ActiveRecord::Base.transaction do
+        @panel = Panel.create
+        params[:hostnames].each do |hostname|
+          favicon = Favicon.where(hostname: hostname).first_or_create
+          favicon.favicon_panels.create(panel_id: @panel.id)
+        end
+      end
+      @panel.generate_name
+    rescue Exception => e
+      
+    end
+    
+    
+    logger.info @panel.inspect
 
     respond_to do |format|
       if @panel.save
-        format.html { redirect_to @panel, notice: 'Panel was successfully created.' }
-        format.json { render json: @panel, status: :created, location: @panel }
+        format.json { render json: {name: @panel.name}, status: :created, location: panels_url(@panel, format: :css) }
       else
-        format.html { render action: "new" }
         format.json { render json: @panel.errors, status: :unprocessable_entity }
       end
     end
+    
   end
   
 end
