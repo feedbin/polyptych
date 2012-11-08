@@ -1,3 +1,7 @@
 .favicon-<%= favicon.hostname.parameterize %> { 
+  <% unless favicon.favicon.nil? %>
 	background-image: url(data:<%= favicon.content_type %>;base64,<%= favicon.favicon %>);
+  <% end %>
+  <% logger.info favicon.favicon.inspect %>
+  
 }

@@ -1,5 +1,7 @@
 Polyptych::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
+  
+  middleware.insert_after('Rack::Cache', Rack::Deflater)
 
   # Code is not reloaded between requests
   config.cache_classes = true
