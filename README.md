@@ -27,7 +27,7 @@ Now that you have a hash you can get the stylesheet like
 
 ```ruby
 require 'httparty'
-HTTParty.get(http://polyptych.dev/panels/#{hash}.css")
+HTTParty.get("http://polyptych.dev/panels/#{hash}.css")
 ```
 
 or using curl
