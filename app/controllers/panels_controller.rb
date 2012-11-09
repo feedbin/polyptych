@@ -31,11 +31,20 @@ class PanelsController < ApplicationController
           Resque.enqueue(FaviconCreator, favicon.id)
         end
       end
+      status = :created
+    else
+      status = :found
     end
-
+    
+    expires_in 1.month, :public => true
+    
     respond_to do |format|
       if @panel
-        format.json { render json: {name: @panel.name}, status: :created, location: panel_url(@panel, format: :css) }
+        format.json { 
+          render json: {name: @panel.name}, 
+          status: status, 
+          location: panel_url(@panel, format: :css)
+        }
       else
         format.json { render json: @panel.errors, status: :unprocessable_entity }
       end

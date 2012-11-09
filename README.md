@@ -62,3 +62,34 @@ Or using curl
 ```shell
 $ curl -v -H "Accept: application/json" -H "Content-type: application/json" -X POST -d ' {"hostnames": ["benubois.com", "daringfireball.net"]}'  http://polyptych.dev/panels.json
 ```
+
+The response should return 201 Created or 302 Found if it already exists.
+
+The response should look like
+
+```shell
+* About to connect() to polyptych.dev port 80 (#0)
+*   Trying 127.0.0.1...
+* connected
+* Connected to polyptych.dev (127.0.0.1) port 80 (#0)
+> POST /panels.json HTTP/1.1
+> User-Agent: curl/7.24.0 (x86_64-apple-darwin12.0) libcurl/7.24.0 OpenSSL/0.9.8r zlib/1.2.5
+> Host: polyptych.dev
+> Accept: application/json
+> Content-type: application/json
+> Content-Length: 54
+> 
+* upload completely sent off: 54 out of 54 bytes
+< HTTP/1.1 302 Moved Temporarily
+< Date: Fri, 09 Nov 2012 21:10:26 GMT
+< Location: http://polyptych.dev/panels/9cf135321116c70e88b361409ea02cf75c46face.css
+< Content-Type: application/json; charset=utf-8
+< Cache-Control: max-age=2592000, public
+< X-UA-Compatible: IE=Edge
+< X-Request-Id: 518334c0827e8240b73e8f8405a4c731
+< X-Runtime: 0.679689
+< Transfer-Encoding: chunked
+< 
+* Connection #0 to host polyptych.dev left intact
+{"name":"9cf135321116c70e88b361409ea02cf75c46face"}* Closing connection #0
+```
