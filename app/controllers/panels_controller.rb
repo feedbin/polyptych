@@ -9,6 +9,14 @@ class PanelsController < ApplicationController
   def show
     panel = Panel.find_by_name(params[:id]) || not_found
     @favicons = panel.favicons
+    
+    # Set longer cache headers if the panel is built. Otherwise we want to
+    # expire it immediately so the panel will be requested next time
+    if panel.complete
+      expires_in 1.month, :public => true
+    else
+      expires_now
+    end
 
     respond_to do |format|
       format.css
@@ -24,19 +32,24 @@ class PanelsController < ApplicationController
         
     if @panel.nil?
       @panel = Panel.create(name: name)
+      favicon_ids = []
+
       params[:hostnames].each do |hostname|
         favicon = Favicon.where(hostname: hostname).first_or_create
         favicon.favicon_panels.create(panel_id: @panel.id)
         unless favicon.favicon
-          Resque.enqueue(FaviconCreator, favicon.id)
+          favicon_ids << favicon.id
         end
       end
+      
+      if favicon_ids.any?
+        Resque.enqueue(FaviconCreator, favicon_ids, @panel.name)
+      end
+      
       status = :created
     else
       status = :found
     end
-    
-    expires_in 1.month, :public => true
     
     respond_to do |format|
       if @panel
