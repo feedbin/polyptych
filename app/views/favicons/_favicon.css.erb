@@ -1,7 +1,8 @@
 .favicon-<%= favicon.hostname.parameterize %> { 
   <% unless favicon.favicon.nil? %>
-	background-image: url(data:<%= favicon.content_type %>;base64,<%= favicon.favicon %>);
+	background-image: url(data:<%= favicon_content_type(favicon.content_type) %>;base64,<%= favicon.favicon %>);
+	background-repeat: no-repeat;
+	background-position: left center;
+	background-size: 16px 16px;
   <% end %>
-  <% logger.info favicon.favicon.inspect %>
-  
 }

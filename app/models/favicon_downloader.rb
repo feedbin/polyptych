@@ -13,7 +13,7 @@ class FaviconDownloader
     
     unless url.nil?
       open(url) do |response|
-        self.content_type = (response.content_type) ? response.content_type : 'image/x-icon'
+        self.content_type = response.content_type
         self.data = Base64.encode64(response.read).gsub("\n", '')
       end
     end

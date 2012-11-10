@@ -2,25 +2,32 @@ class PanelsController < ApplicationController
 
   skip_before_filter :verify_authenticity_token
   
+  before_filter :cors_preflight_check
+  after_filter :cors_set_access_control_headers
+  
   caches_action :show
   
   # GET /panels/1
   # GET /panels/1.json
   def show
-    panel = Panel.find_by_name(params[:id]) || not_found
-    @favicons = panel.favicons
+    panel = Panel.find_by_name(params[:id])
     
-    # Set longer cache headers if the panel is built. Otherwise we want to
-    # expire it immediately so the panel will be requested next time
-    if panel.complete
-      expires_in 1.month, :public => true
+    if panel
+      @favicons = panel.favicons
+      # Set longer cache headers if the panel is built. Otherwise we want to
+      # expire it immediately so the panel will be requested next time
+      if panel.complete
+        expires_in 1.month, :public => true
+      else
+        expires_now
+      end
+      respond_to do |format|
+        format.css
+      end
     else
-      expires_now
+      not_found
     end
 
-    respond_to do |format|
-      format.css
-    end
   end
 
   # POST /panels
