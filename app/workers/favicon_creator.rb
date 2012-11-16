@@ -1,22 +1,19 @@
 class FaviconCreator
-  @queue = :favicons_queue
-  def self.perform(favicon_ids, panel_name)
+  include Sidekiq::Worker
+  
+  def perform(favicon_id, panel_id, total_count)
     
-    favicon_ids = [*favicon_ids]
+    panel = Panel.find(panel_id)
+    current_count = Panel.increment_counter(:favicon_count, panel_id)
+
+    favicon = Favicon.find(favicon_id)
     
-    favicon_ids.each do |favicon_id|
-      favicon = Favicon.find(favicon_id)
+    favicon_result = FaviconDownloader.new(favicon.hostname)
+    favicon_result.download
     
-      favicon_result = FaviconDownloader.new(favicon.hostname)
-      favicon_result.download
-    
-      if favicon_result.data && favicon_result.data.length > 0
-        favicon.update_attributes(favicon: favicon_result.data, content_type: favicon_result.content_type)
-      end
+    if favicon_result.data && favicon_result.data.length > 0
+      favicon.update_attributes(favicon: favicon_result.data, content_type: favicon_result.content_type)
     end
-    
-    panel = Panel.where(name: panel_name).first
-    panel.update_attribute(:complete, true)
-    
+
   end
 end

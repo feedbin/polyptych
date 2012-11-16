@@ -1,1 +1,1 @@
-worker_favicon: bundle exec rake resque:work QUEUE='*'
+worker_favicon: bundle exec sidekiq -c 10
