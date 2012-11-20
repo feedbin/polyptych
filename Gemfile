@@ -10,3 +10,4 @@ gem 'sinatra', :require => nil
 gem 'sidekiq'
 gem 'foreman'
 gem 'rack-cors', require: 'rack/cors'
+gem 'autoscaler'

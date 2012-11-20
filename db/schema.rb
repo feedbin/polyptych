@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121116160636) do
+ActiveRecord::Schema.define(:version => 20121120032355) do
 
   create_table "favicon_panels", :force => true do |t|
     t.integer  "favicon_id"
@@ -36,10 +36,9 @@ ActiveRecord::Schema.define(:version => 20121116160636) do
 
   create_table "panels", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
-    t.boolean  "complete",      :default => false
-    t.integer  "favicon_count", :default => 0
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "complete",   :default => false
   end
 
   add_index "panels", ["name"], :name => "index_panels_on_name", :unique => true
