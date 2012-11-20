@@ -1,5 +1,3 @@
-require "#{Rails.root}/app/workers/panel_completer"
-
 class PanelsController < ApplicationController
 
   skip_before_filter :verify_authenticity_token
