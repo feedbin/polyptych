@@ -9,6 +9,8 @@ class PanelsController < ApplicationController
   def show
     panel = Panel.find_by_name(params[:id])
     
+    response.headers["Connection"] = "close"
+
     if panel
       @favicons = panel.favicons
       # Set longer cache headers if the panel is built. Otherwise we want to
@@ -18,9 +20,6 @@ class PanelsController < ApplicationController
       else
         expires_in 0.seconds
       end
-      
-      response.headers["Connection"] = "close"
-      
       respond_to do |format|
         format.css
       end
