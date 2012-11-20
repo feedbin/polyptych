@@ -8,9 +8,7 @@ class PanelsController < ApplicationController
   # GET /panels/1.json
   def show
     panel = Panel.find_by_name(params[:id])
-    
-    response.headers["Connection"] = "close"
-
+    logger.info { params }
     if panel
       @favicons = panel.favicons
       # Set longer cache headers if the panel is built. Otherwise we want to
@@ -18,13 +16,13 @@ class PanelsController < ApplicationController
       if panel.complete
         expires_in 1.month, public: true
       else
-        expires_in 1.second
+        expires_now
       end
       respond_to do |format|
         format.css
       end
     else
-      expires_in 1.second
+      expires_now
       not_found
     end
 
@@ -62,11 +60,7 @@ class PanelsController < ApplicationController
     
     respond_to do |format|
       if @panel
-        format.json { 
-          render json: {name: @panel.name}, 
-          status: status, 
-          location: panel_url(@panel, format: :css)
-        }
+        format.json { render json: {name: @panel.name}, status: status }
       else
         format.json { render json: @panel.errors, status: :unprocessable_entity }
       end
