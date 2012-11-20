@@ -18,6 +18,9 @@ class PanelsController < ApplicationController
       else
         expires_in 0.seconds
       end
+      
+      response.headers["Connection"] = "close"
+      
       respond_to do |format|
         format.css
       end
