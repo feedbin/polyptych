@@ -157,5 +157,4 @@ DEPENDENCIES
   sidekiq
   sinatra
   slim
-  sprockets
   thin
