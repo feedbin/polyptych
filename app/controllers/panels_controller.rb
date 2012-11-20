@@ -22,6 +22,7 @@ class PanelsController < ApplicationController
         format.css
       end
     else
+      expires_now
       not_found
     end
 
