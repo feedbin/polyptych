@@ -16,13 +16,13 @@ class PanelsController < ApplicationController
       if panel.complete
         expires_in 1.month, :public => true
       else
-        expires_now
+        expires_in 0.seconds
       end
       respond_to do |format|
         format.css
       end
     else
-      expires_now
+      expires_in 0.seconds
       not_found
     end
 
