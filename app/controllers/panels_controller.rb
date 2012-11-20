@@ -4,6 +4,10 @@ class PanelsController < ApplicationController
   
   caches_action :show
   
+  def options
+    render nothing: true
+  end
+  
   # GET /panels/1
   # GET /panels/1.json
   def show
