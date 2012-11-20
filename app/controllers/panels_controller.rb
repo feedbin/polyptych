@@ -16,15 +16,15 @@ class PanelsController < ApplicationController
       # Set longer cache headers if the panel is built. Otherwise we want to
       # expire it immediately so the panel will be requested next time
       if panel.complete
-        expires_in 1.month, :public => true
+        expires_in 1.month, public: true
       else
-        expires_in 0.seconds
+        expires_in 1.second
       end
       respond_to do |format|
         format.css
       end
     else
-      expires_in 0.seconds
+      expires_in 1.second
       not_found
     end
 
