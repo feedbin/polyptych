@@ -8,7 +8,7 @@ class PanelsController < ApplicationController
   # GET /panels/1.json
   def show
     panel = Panel.find_by_name(params[:id])
-    logger.info { params }
+
     if panel
       @favicons = panel.favicons
       # Set longer cache headers if the panel is built. Otherwise we want to
@@ -66,6 +66,18 @@ class PanelsController < ApplicationController
       end
     end
     
+  end
+  
+  def complete
+    @panel = Panel.find_by_name(params[:id])
+
+    respond_to do |format|
+      if @panel
+        format.json { render json: {complete: @panel.complete}, status: :ok }
+      else
+        format.json { render json: @panel.errors, status: :unprocessable_entity }
+      end
+    end
   end
   
 end
