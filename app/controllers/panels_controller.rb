@@ -68,12 +68,14 @@ class PanelsController < ApplicationController
     
   end
   
-  def complete
+  def status
     @panel = Panel.find_by_name(params[:id])
 
     respond_to do |format|
       if @panel
-        format.json { render json: {complete: @panel.complete}, status: :ok }
+        format.json { render json: {complete: @panel.complete, exists: true}, status: :ok }
+      elsif @panel.nil?
+        format.json { render json: {complete: false, exists: false}, status: :ok }
       else
         format.json { render json: @panel.errors, status: :unprocessable_entity }
       end

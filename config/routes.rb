@@ -4,7 +4,7 @@ Polyptych::Application.routes.draw do
 
   resources :panels, only: [:show, :create] do
     member do
-      get :complete
+      get :status
     end
   end
 

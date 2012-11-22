@@ -4,7 +4,7 @@ production:
   encoding: unicode
   database: polyptych_development
   pool: 15
-  username: bb
+  username: ben
   password:
 
 development:
@@ -12,7 +12,7 @@ development:
   encoding: unicode
   database: polyptych_development
   pool: 15
-  username: bb
+  username: ben
   password:
 
 test:
@@ -20,5 +20,5 @@ test:
   encoding: unicode
   database: polyptych_test
   pool: 15
-  username: bb
+  username: ben
   password:
