@@ -13,4 +13,5 @@ gem 'foreman'
 gem 'rack-cors', require: 'rack/cors'
 gem 'autoscaler'
 gem 'newrelic_rpm'
+gem 'unicorn'
 
