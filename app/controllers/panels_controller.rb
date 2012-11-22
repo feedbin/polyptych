@@ -9,7 +9,13 @@ class PanelsController < ApplicationController
     panel = Panel.find_by_name(params[:id])
     if panel
       @favicons = panel.favicons
-      expires_in 1.month, public: true
+
+      if panel.complete
+        expires_in 1.year, public: true
+      else
+        expires_now
+      end
+      
       respond_to do |format|
         format.css
       end
