@@ -4,31 +4,20 @@ class PanelsController < ApplicationController
   
   caches_action :show
   
-  # GET /panels/1
-  # GET /panels/1.json
+  # GET /panels/1.css
   def show
     panel = Panel.find_by_name(params[:id])
-
     if panel
       @favicons = panel.favicons
-      # Set longer cache headers if the panel is built. Otherwise we want to
-      # expire it immediately so the panel will be requested next time
-      if panel.complete
-        expires_in 1.month, public: true
-      else
-        expires_now
-      end
+      expires_in 1.month, public: true
       respond_to do |format|
         format.css
       end
     else
-      expires_now
       not_found
     end
-
   end
 
-  # POST /panels
   # POST /panels.json
   def create
     name = generate_name(params[:hostnames])
@@ -70,7 +59,6 @@ class PanelsController < ApplicationController
   
   def status
     @panel = Panel.find_by_name(params[:id])
-
     respond_to do |format|
       if @panel
         format.json { render json: {complete: @panel.complete, exists: true}, status: :ok }
