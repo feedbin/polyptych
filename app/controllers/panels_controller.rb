@@ -2,8 +2,6 @@ class PanelsController < ApplicationController
 
   skip_before_filter :verify_authenticity_token
   
-  caches_action :show
-  
   # GET /panels/1.css
   def show
     panel = Panel.find_by_name(params[:id])
