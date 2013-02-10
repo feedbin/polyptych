@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Polyptych::Application.config.secret_token = 'adc85aac7ebbc00a28740c5d924739e5e7ff816a0dd89dc458bbea67680c4cf01bf21ae543f161a656f91c7840615f14f418a6ea61693e418f7994661c1969c1'
+Polyptych::Application.config.secret_token = '74703453db8a4385635fa3d73eb365cbc7808bed355bd04ce67145c764c37af55c983d1f1289b7b7d8b8beae733b78213c2955b4c492564f55c8356efd9141b7'
