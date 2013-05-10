@@ -45,15 +45,12 @@ class PanelsController < ApplicationController
       end
       
       PanelCompleter.delay_for(1.minute).perform(@panel.id)
-      
-      status = :created
-    else
-      status = :found
+
     end
     
     respond_to do |format|
       if @panel
-        format.json { render json: {name: @panel.name}, status: status }
+        format.json { render json: {name: @panel.name}, status: :ok }
       else
         format.json { render json: @panel.errors, status: :unprocessable_entity }
       end
