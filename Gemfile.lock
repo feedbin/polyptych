@@ -67,7 +67,6 @@ GEM
     multi_json (1.5.0)
     net-http-digest_auth (1.2.1)
     net-http-persistent (2.8)
-    newrelic_rpm (3.5.6.46)
     nokogiri (1.5.6)
     ntlm-http (0.1.1)
     pg (0.14.1)
@@ -152,7 +151,6 @@ DEPENDENCIES
   autoscaler
   foreman
   mechanize
-  newrelic_rpm
   pg
   rack-cors
   rails (= 3.2.11)
