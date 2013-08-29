@@ -80,8 +80,7 @@ class FaviconFinder
 
       # check if it's a icon/gif/png file by looking at magic bytes
       if favicon.body =~ /^\x00\x00\x01\x00/ or 
-         favicon.body =~ /^\x47\x49\x46\x38/ or
-         favicon.body =~ /^\x89\x50\x4E\x47\x0D\x0A\x1A\x0A/
+         favicon.body =~ /^\x47\x49\x46\x38/
           return true
       else
           return false
