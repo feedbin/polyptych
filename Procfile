@@ -1,2 +1,2 @@
 web: bundle exec unicorn -p $PORT -c ./config/unicorn.rb
-worker: bundle exec sidekiq -c 10
+worker: DB_POOL=10 bundle exec sidekiq -c 10
